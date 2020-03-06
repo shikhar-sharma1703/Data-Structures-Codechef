@@ -1,0 +1,70 @@
+class Conversion:
+
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.top = -1
+        self.stack = []  # This array is used as a stack
+        self.output = []
+        self.precedence = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3}
+
+    def isEmpty(self):
+        if self.top == -1:
+            return True
+        else:
+            return False
+
+    def peek(self):
+        return self.stack[-1]
+
+    def pop(self):
+        if self.isEmpty():
+            return "Empty stack"
+        else:
+            self.top -= 1
+            return self.stack.pop()
+
+    def push(self, element):
+        self.stack.append(element)
+        self.top += 1
+
+    def isOperand(self, ch):
+        return ch.isalpha()
+
+    def notGreater(self, i):
+        a = self.precedence[i]
+        b = self.precedence[self.peek()]
+        if a <= b:
+            return True
+        else:
+            return False
+
+    def infixToPostfix(self, exp):
+
+        for i in exp:
+
+            if self.isOperand(i):
+                self.output.append(i)
+
+            elif i == '(':
+                self.push(i)
+
+            elif i == ')':
+                while (not self.isEmpty()) and self.peek() != '(':
+                    a = self.pop()
+                    self.output.append(a)
+
+            else:
+                while not self.isEmpty() and self.notGreater(i):
+                    a = self.pop()
+                    self.output.append(self.pop())
+                self.push(i)
+
+        while not self.isEmpty():
+            self.output.append(self.pop())
+
+        print("".join(self.output))
+
+
+exp = input()
+obj = Conversion(len(exp))
+obj.infixToPostfix(exp)
