@@ -1,0 +1,24 @@
+abc = input().strip()
+s = 0
+stack = []
+temp = 0
+for i in range(len(abc)):
+    if abc[i] == 'C':
+        stack.append(12)
+    if abc[i] == 'O':
+        stack.append(16)
+    if abc[i] == 'H':
+        stack.append(1)
+    if '1' <= abc[i] <= '9':
+        stack[-1] = int(abc[i]) * stack[-1]
+    if abc[i] == '(':
+
+        stack.append(-1)
+    if abc[i] == ')':
+        while stack[-1] != -1:
+            temp += stack[-1]
+            stack.pop()
+        stack.pop()
+        stack.append(temp)
+
+print(sum(stack))
