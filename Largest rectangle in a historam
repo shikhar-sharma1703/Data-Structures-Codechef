@@ -1,0 +1,33 @@
+def largest_rectangle(hist):
+    stack = []
+    index = 0
+    max_area = 0
+
+    while index < len(hist):
+        if (not stack) or hist[stack[-1]] <= hist[index]:
+            stack.append(index)
+            index += 1
+
+        else:
+            top_of_stack = stack.pop()
+            if stack:
+                area = hist[top_of_stack] * (index - stack[-1] - 1)
+            else:
+                area = hist[top_of_stack] * index
+
+            max_area = max(area, max_area)
+
+    while stack:
+        top_of_stack = stack.pop()
+        if stack:
+            area = hist[top_of_stack] * (index - stack[-1] - 1)
+        else:
+            area = hist[top_of_stack] * index
+
+        max_area = max(area, max_area)
+
+    return max_area
+
+
+hist = list(map(int, input().split()))
+print(largest_rectangle(hist))
