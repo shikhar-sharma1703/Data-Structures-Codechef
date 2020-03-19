@@ -1,0 +1,30 @@
+counter = 1
+while True:
+    abc = input().strip()
+    if abc[0] == '-':
+        break
+    stack = []
+    count = 0
+    for i in range(len(abc)):
+        if abc[i] == '{':
+            stack.append(abc[i])
+        if abc[i] == '}':
+            if len(stack) > 0 and stack[-1] == '{':
+                stack.pop()
+            elif len(stack) > 0 and stack[-1] == '}':
+                stack.append(abc[i])
+            elif len(stack) == 0:
+                stack.append(abc[i])
+
+    if len(stack) == 0:
+        count = 0
+    else:
+        while len(stack) != 0:
+            top = stack.pop()
+            stop = stack.pop()
+            if top == stop:
+                count += 1
+            else:
+                count += 2
+    print(str(counter) + ". " + str(count))
+    counter += 1
