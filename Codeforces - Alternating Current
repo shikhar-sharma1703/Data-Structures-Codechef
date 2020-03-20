@@ -1,0 +1,11 @@
+abc = input()
+stack =[]
+for i in abc:
+    if len(stack) == 0:
+        stack.append(i)
+    else:
+        if stack[-1] == i:
+            stack.pop()
+        else:
+            stack.append(i)
+print("Yes") if len(stack) == 0 else print("No")
