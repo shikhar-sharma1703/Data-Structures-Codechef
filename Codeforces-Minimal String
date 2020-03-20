@@ -1,0 +1,15 @@
+ct = [0] * 26
+string = input().strip()
+for i in string:
+    ct[ord(i) - ord('a')] += 1
+t, u = [], []
+for i in string:
+    t.append(i)
+    ct[ord(i) - ord('a')] -= 1
+    while t and sum(ct[:ord(t[-1]) - ord('a')]) == 0:
+        u.append(t.pop())
+print("".join(u))
+
+
+
+
